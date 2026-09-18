@@ -20,7 +20,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
     <div
       id={`tool-card-${tool.id}`}
       onClick={onOpen}
-      className="group relative flex flex-col justify-between p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer"
+      className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 hover:border-indigo-500/40 dark:hover:border-indigo-500/40 shadow-xs hover:shadow-md transition-all duration-200 cursor-pointer w-full min-w-0 box-border"
     >
       <div className="space-y-3">
         {/* Icon & Category tag & Favorite Button */}
@@ -76,8 +76,8 @@ export const ToolCard: React.FC<ToolCardProps> = ({
       </div>
 
       {/* Footer Open Button */}
-      <div className="pt-4 mt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between">
-        <span className="text-[11px] font-mono text-zinc-400">
+      <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-zinc-100 dark:border-zinc-800/60 flex items-center justify-between gap-2 shrink-0">
+        <span className="text-[11px] font-mono text-zinc-400 truncate">
           Client-side
         </span>
         <button
@@ -87,10 +87,10 @@ export const ToolCard: React.FC<ToolCardProps> = ({
             e.stopPropagation();
             onOpen();
           }}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer group-hover:bg-indigo-600 group-hover:text-white"
+          className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] sm:min-h-[32px] rounded-lg text-xs font-medium bg-zinc-100 dark:bg-zinc-800 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-600 dark:hover:text-white text-zinc-700 dark:text-zinc-300 transition-all cursor-pointer group-hover:bg-indigo-600 group-hover:text-white shrink-0 active:scale-95"
         >
           <span>Open</span>
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-3.5 h-3.5 shrink-0" />
         </button>
       </div>
     </div>

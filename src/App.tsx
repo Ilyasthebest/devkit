@@ -289,9 +289,9 @@ export default function App() {
         onRestoreEntry={handleRestoreHistory}
       />
 
-      <div className="flex-1 max-w-7xl w-full mx-auto flex">
+      <div className="flex-1 max-w-7xl w-full mx-auto flex flex-col md:flex-row min-w-0">
         {/* Desktop Sidebar */}
-        <div className="hidden md:block">
+        <div className="hidden md:block shrink-0">
           <Sidebar
             activeTool={activeTool}
             onSelectTool={handleSelectTool}
@@ -302,68 +302,69 @@ export default function App() {
         </div>
 
         {/* Main Workspace Area */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl">
+        <main className="flex-1 w-full min-w-0 p-4 sm:p-6 lg:p-8 max-w-5xl">
           {activeTool === 'home' ? (
-            <div className="space-y-8" id="home-view">
+            <div className="space-y-8 w-full min-w-0" id="home-view">
               {/* Hero Section */}
-              <div className="pt-2 pb-6 border-b border-zinc-200 dark:border-zinc-800">
+              <div className="pt-2 pb-6 border-b border-zinc-200 dark:border-zinc-800 w-full min-w-0">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold">
-                    <Zap className="w-3.5 h-3.5" />
-                    <span>DevKit v3.0 • Fast, Private Developer Workspace</span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold max-w-full">
+                    <Zap className="w-3.5 h-3.5 shrink-0" />
+                    <span className="sm:hidden truncate">DevKit v3.0 • Workspace</span>
+                    <span className="hidden sm:inline">DevKit v3.0 • Fast, Private Developer Workspace</span>
                   </div>
 
                   {/* Quick Cmd+K Pill */}
                   <button
                     type="button"
                     onClick={() => setIsCommandPaletteOpen(true)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/50 text-xs text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-900 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 hover:border-indigo-500/50 text-xs text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-900 transition-colors cursor-pointer shrink-0"
                   >
-                    <Command className="w-3.5 h-3.5 text-zinc-400" />
+                    <Command className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
                     <span>Command Palette</span>
-                    <kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800">
+                    <kbd className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 shrink-0">
                       ⌘K
                     </kbd>
                   </button>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white break-words">
                   Developer tools. One place.
                 </h1>
 
-                <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 mt-2 font-normal">
+                <p className="text-sm sm:text-base lg:text-lg text-zinc-600 dark:text-zinc-400 mt-2 font-normal">
                   Fast, private utilities for developers.
                 </p>
 
                 {/* Privacy Badges */}
-                <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-zinc-500 dark:text-zinc-400">
                   <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
-                    <ShieldCheck className="w-4 h-4" />
-                    Your data stays in your browser.
+                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                    <span>Your data stays in your browser.</span>
                   </span>
                   <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">•</span>
                   <span className="flex items-center gap-1.5">
-                    <Lock className="w-3.5 h-3.5" />
-                    No server calls or analytics
+                    <Lock className="w-3.5 h-3.5 shrink-0" />
+                    <span>No server calls or analytics</span>
                   </span>
                   <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">•</span>
                   <span className="flex items-center gap-1.5">
-                    <Cpu className="w-3.5 h-3.5" />
-                    Runs 100% locally
+                    <Cpu className="w-3.5 h-3.5 shrink-0" />
+                    <span>Runs 100% locally</span>
                   </span>
                 </div>
               </div>
 
               {/* Favorites Section (Feature 1 & Feature 7) */}
               {!searchQuery.trim() && selectedCategory === 'all' && (
-                <div className="space-y-3" id="home-favorites-section">
+                <div className="space-y-3 w-full min-w-0" id="home-favorites-section">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-500" />
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-500 shrink-0" />
                       <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                         Favorite Tools
                       </h2>
-                      <span className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold px-2 py-0.5 rounded-full shrink-0">
                         {favoriteTools.length}
                       </span>
                     </div>
@@ -380,23 +381,23 @@ export default function App() {
                   </div>
 
                   {favoriteTools.length === 0 ? (
-                    <div className="p-4 sm:p-5 rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/30 flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500">
+                    <div className="p-4 sm:p-5 rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/30 flex items-center justify-between gap-4 w-full min-w-0">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0">
                           <Star className="w-5 h-5" />
                         </div>
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">
                             Star your frequently used tools
                           </p>
-                          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-normal">
                             Click the star icon on any tool card to pin it here for instant 1-click access.
                           </p>
                         </div>
                       </div>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full min-w-0">
                       {favoriteTools.map((tool) => (
                         <ToolCard
                           key={`fav-${tool.id}`}
@@ -413,14 +414,14 @@ export default function App() {
 
               {/* Recently Used Section (Feature 2 & Feature 7) */}
               {!searchQuery.trim() && selectedCategory === 'all' && recentToolItems.length > 0 && (
-                <div className="space-y-3" id="home-recent-section">
+                <div className="space-y-3 w-full min-w-0" id="home-recent-section">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-zinc-400" />
+                      <Clock className="w-4 h-4 text-zinc-400 shrink-0" />
                       <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                         Recently Used
                       </h2>
-                      <span className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-2 py-0.5 rounded-full shrink-0">
                         {recentToolItems.length}
                       </span>
                     </div>
@@ -446,7 +447,7 @@ export default function App() {
                       >
                         <ToolIcon
                           name={tool.icon}
-                          className="w-4 h-4 text-zinc-400 group-hover:text-indigo-500 dark:text-zinc-500 transition-colors"
+                          className="w-4 h-4 text-zinc-400 group-hover:text-indigo-500 dark:text-zinc-500 transition-colors shrink-0"
                         />
                         <span>{tool.name}</span>
                       </button>
@@ -456,10 +457,10 @@ export default function App() {
               )}
 
               {/* Categories & Search Filter Bar */}
-              <div className="space-y-4 pt-2">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-4 pt-2 w-full min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full min-w-0">
                   {/* Category Pills */}
-                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none w-full min-w-0 max-w-full">
                     {CATEGORIES.map((cat) => {
                       const isSelected = selectedCategory === cat.id;
                       const count =
@@ -471,7 +472,7 @@ export default function App() {
                           key={cat.id}
                           type="button"
                           onClick={() => setSelectedCategory(cat.id)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                          className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 shrink-0 ${
                             isSelected
                               ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 shadow-xs'
                               : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
@@ -499,17 +500,17 @@ export default function App() {
 
                 {/* Active Search Banner if filtered */}
                 {searchQuery.trim() && (
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 text-xs text-indigo-700 dark:text-indigo-300">
-                    <div className="flex items-center gap-2">
-                      <Search className="w-4 h-4" />
-                      <span>
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 text-xs text-indigo-700 dark:text-indigo-300 w-full min-w-0">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Search className="w-4 h-4 shrink-0" />
+                      <span className="truncate">
                         Matching: <strong className="font-mono">&quot;{searchQuery}&quot;</strong>
                       </span>
                     </div>
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
-                      className="underline hover:text-indigo-900 dark:hover:text-white font-medium cursor-pointer"
+                      className="underline hover:text-indigo-900 dark:hover:text-white font-medium cursor-pointer shrink-0 ml-2"
                     >
                       Clear search
                     </button>
@@ -518,7 +519,7 @@ export default function App() {
 
                 {/* All Tools Grid */}
                 {filteredTools.length === 0 ? (
-                  <div className="p-12 text-center rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 space-y-3">
+                  <div className="p-8 sm:p-12 text-center rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800 space-y-3 w-full min-w-0">
                     <Search className="w-8 h-8 mx-auto text-zinc-400 opacity-40" />
                     <h3 className="text-base font-semibold text-zinc-700 dark:text-zinc-300">
                       No matching tools found
@@ -538,7 +539,7 @@ export default function App() {
                     </button>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 w-full min-w-0">
                     {filteredTools.map((tool) => (
                       <ToolCard
                         key={tool.id}
@@ -554,7 +555,7 @@ export default function App() {
             </div>
           ) : (
             /* Active Tool View */
-            <div className="space-y-6" id="tool-view-container">
+            <div className="space-y-6 w-full min-w-0" id="tool-view-container">
               {/* Back to all tools header bar & Quick Star / Status bar */}
               <div className="flex items-center justify-between pb-3 flex-wrap gap-3">
                 <button
