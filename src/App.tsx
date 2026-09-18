@@ -13,6 +13,12 @@ import { ColorConverter } from './components/tools/ColorConverter';
 import { RegexTester } from './components/tools/RegexTester';
 import { MarkdownPreviewer } from './components/tools/MarkdownPreviewer';
 import { LoremIpsumGenerator } from './components/tools/LoremIpsumGenerator';
+import { JwtDecoder } from './components/tools/JwtDecoder';
+import { HashGenerator } from './components/tools/HashGenerator';
+import { UrlEncoderDecoder } from './components/tools/UrlEncoderDecoder';
+import { NumberBaseConverter } from './components/tools/NumberBaseConverter';
+import { CronGenerator } from './components/tools/CronGenerator';
+import { HttpStatusReference } from './components/tools/HttpStatusReference';
 import {
   ArrowLeft,
   ShieldCheck,
@@ -260,6 +266,12 @@ export default function App() {
                 {activeTool === 'regex' && <RegexTester />}
                 {activeTool === 'markdown' && <MarkdownPreviewer />}
                 {activeTool === 'lorem-ipsum' && <LoremIpsumGenerator />}
+                {activeTool === 'jwt-decoder' && <JwtDecoder />}
+                {activeTool === 'hash-generator' && <HashGenerator />}
+                {activeTool === 'url-encoder' && <UrlEncoderDecoder />}
+                {activeTool === 'number-base' && <NumberBaseConverter />}
+                {activeTool === 'cron-generator' && <CronGenerator />}
+                {activeTool === 'http-status' && <HttpStatusReference />}
               </div>
             </div>
           )}

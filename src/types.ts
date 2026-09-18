@@ -6,7 +6,13 @@ export type ToolId =
   | 'color'
   | 'regex'
   | 'markdown'
-  | 'lorem-ipsum';
+  | 'lorem-ipsum'
+  | 'jwt-decoder'
+  | 'hash-generator'
+  | 'url-encoder'
+  | 'number-base'
+  | 'cron-generator'
+  | 'http-status';
 
 export interface ToolMeta {
   id: ToolId;
@@ -14,6 +20,6 @@ export interface ToolMeta {
   shortDescription: string;
   description: string;
   icon: string;
-  category: 'format' | 'encode' | 'generate' | 'convert' | 'text';
+  category: 'format' | 'encode' | 'generate' | 'convert' | 'text' | 'reference';
   keywords: string[];
 }

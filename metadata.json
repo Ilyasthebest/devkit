@@ -1,6 +1,6 @@
 {
   "name": "DevKit",
-  "description": "Fast, private developer utility toolkit featuring JSON formatter, Base64 encoder/decoder, UUID generator, timestamp converter, color converter, regex tester, markdown previewer, and lorem ipsum generator.",
+  "description": "Fast, private developer utility toolkit featuring 14 offline-capable utilities: JSON formatter, Base64, UUIDs, timestamps, colors, regex, markdown, lorem ipsum, JWT decoder, hash generator, URL encoder/decoder, number base converter, cron generator, and HTTP status codes.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
