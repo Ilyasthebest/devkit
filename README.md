@@ -2,7 +2,7 @@
 
 Fast, private, browser-based developer utilities in one place.
 
-[Live Demo](YOUR_VERCEL_URL) • [GitHub](https://github.com/Ilyasthebest/devkit)
+[Live Demo](https://devkit-mu-one.vercel.app/) • [GitHub](https://github.com/Ilyasthebest/devkit)
 
 ## Overview
 
