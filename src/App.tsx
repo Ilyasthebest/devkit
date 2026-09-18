@@ -239,7 +239,7 @@ export default function App() {
   const currentToolMeta = TOOLS.find((t) => t.id === activeTool);
 
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors overflow-x-hidden">
+    <div className="flex-1 min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col font-sans transition-colors overflow-x-hidden">
       {/* Header Navbar */}
       <Navbar
         searchQuery={searchQuery}
@@ -302,7 +302,7 @@ export default function App() {
         </div>
 
         {/* Main Workspace Area */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-5xl">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-5xl">
           {activeTool === 'home' ? (
             <div className="space-y-8" id="home-view">
               {/* Hero Section */}
@@ -628,12 +628,12 @@ export default function App() {
       </div>
 
       {/* Global Footer */}
-      <footer className="mt-auto border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 sm:bg-white/50 sm:dark:bg-zinc-950/50 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] text-center text-xs text-zinc-500 dark:text-zinc-400">
+      <footer className="mt-auto border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 pt-5 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-xs text-zinc-500 dark:text-zinc-400">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-medium">
             DevKit — Private, client-side utility workspace for developers.
           </p>
-          <div className="flex items-center gap-4 text-zinc-400">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-zinc-400">
             <span>All operations occur 100% locally</span>
             <span>•</span>
             <button

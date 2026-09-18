@@ -10,6 +10,19 @@
     <meta property="og:description" content="Fast, private utilities for developers. 100% client-side: JSON formatter, Base64, UUIDs, timestamps, colors, regex, markdown, lorem ipsum, JWT decoder, hash generator, URL encoder, number base converter, cron generator, and HTTP status codes." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      (function() {
+        try {
+          var t = localStorage.getItem('devkit_theme');
+          var isDark = t === 'dark' || ((!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
