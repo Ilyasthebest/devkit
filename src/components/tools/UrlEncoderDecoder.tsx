@@ -100,7 +100,7 @@ export const UrlEncoderDecoder: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-200 dark:border-zinc-800">
         <div>
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 shrink-0">
               <Link className="w-5 h-5" />
             </div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
@@ -112,7 +112,7 @@ export const UrlEncoderDecoder: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap shrink-0">
           <button
             id="url-load-sample-btn"
             type="button"
@@ -135,14 +135,14 @@ export const UrlEncoderDecoder: React.FC = () => {
       </div>
 
       {/* Mode Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-zinc-100/80 dark:bg-zinc-900/80 rounded-xl border border-zinc-200 dark:border-zinc-800">
-        <div className="flex items-center gap-2">
-          <div className="inline-flex p-1 bg-zinc-200/80 dark:bg-zinc-800 rounded-lg border border-zinc-300/60 dark:border-zinc-700/60">
+      <div className="w-full max-w-full box-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-zinc-100/80 dark:bg-zinc-900/80 rounded-xl border border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-2 w-full sm:w-auto max-w-full">
+          <div className="flex flex-1 sm:flex-initial p-1 bg-zinc-200/80 dark:bg-zinc-800 rounded-lg border border-zinc-300/60 dark:border-zinc-700/60 min-w-0">
             <button
               id="url-mode-encode-btn"
               type="button"
               onClick={() => handleModeChange('encode')}
-              className={`px-3.5 py-1 text-xs font-medium rounded-md transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 sm:py-1 text-xs font-medium rounded-md transition-all cursor-pointer text-center whitespace-nowrap min-w-0 ${
                 mode === 'encode'
                   ? 'bg-indigo-600 text-white shadow-xs'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
@@ -154,7 +154,7 @@ export const UrlEncoderDecoder: React.FC = () => {
               id="url-mode-decode-btn"
               type="button"
               onClick={() => handleModeChange('decode')}
-              className={`px-3.5 py-1 text-xs font-medium rounded-md transition-all cursor-pointer ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-3.5 py-1.5 sm:py-1 text-xs font-medium rounded-md transition-all cursor-pointer text-center whitespace-nowrap min-w-0 ${
                 mode === 'decode'
                   ? 'bg-indigo-600 text-white shadow-xs'
                   : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200'
@@ -170,15 +170,15 @@ export const UrlEncoderDecoder: React.FC = () => {
             onClick={handleSwap}
             title="Swap input and output"
             aria-label="Swap input and output"
-            className="p-1.5 rounded-lg bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer"
+            className="p-2 sm:p-1.5 rounded-lg bg-zinc-200/80 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 transition-colors cursor-pointer shrink-0 min-h-[34px] min-w-[34px] flex items-center justify-center"
           >
             <ArrowUpDown className="w-4 h-4" />
           </button>
         </div>
 
         {mode === 'encode' && (
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-zinc-500 dark:text-zinc-400">Mode:</span>
+          <div className="flex items-center gap-2 text-xs w-full sm:w-auto max-w-full min-w-0">
+            <span className="text-zinc-500 dark:text-zinc-400 shrink-0 font-medium">Mode:</span>
             <select
               value={encodeType}
               onChange={(e) => {
@@ -193,7 +193,7 @@ export const UrlEncoderDecoder: React.FC = () => {
                 }
               }}
               aria-label="URL encoding mode"
-              className="bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg px-2.5 py-1 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none"
+              className="w-full sm:w-auto min-w-0 max-w-full bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg px-2.5 py-1.5 sm:py-1 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none truncate cursor-pointer"
             >
               <option value="component">encodeURIComponent (Standard query/path)</option>
               <option value="full">encodeURI (Full URL with protocol/host intact)</option>

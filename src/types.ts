@@ -23,3 +23,14 @@ export interface ToolMeta {
   category: 'format' | 'encode' | 'generate' | 'convert' | 'text' | 'reference';
   keywords: string[];
 }
+
+export type ThemeMode = 'system' | 'light' | 'dark';
+
+export interface HistoryEntry {
+  id: string;
+  toolId: ToolId;
+  toolName: string;
+  timestamp: number;
+  summary: string;
+  payload: Record<string, any>;
+}
