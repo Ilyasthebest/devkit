@@ -1,6 +1,6 @@
 {
   "name": "DevKit",
-  "description": "Fast, private utilities for developers. 100% client-side: JSON formatter, Base64, UUIDs, timestamps, colors, regex, markdown, lorem ipsum, JWT decoder, hash generator, URL encoder, number base converter, cron generator, and HTTP status codes.",
+  "description": "DevKit is a fast, private browser-based developer toolkit with 14 developer utilities for formatting, encoding, debugging, conversion, testing, and reference tasks.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

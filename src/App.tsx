@@ -160,6 +160,18 @@ export default function App() {
     return () => window.removeEventListener('hashchange', syncFromHash);
   }, []);
 
+  // Synchronize document.title with active tool for client-side navigation
+  useEffect(() => {
+    if (activeTool === 'home') {
+      document.title = 'DevKit — Fast Private Developer Tools';
+    } else {
+      const tool = TOOLS.find((t) => t.id === activeTool);
+      if (tool) {
+        document.title = `${tool.name} — DevKit`;
+      }
+    }
+  }, [activeTool]);
+
   // Track recently opened tools
   useEffect(() => {
     if (activeTool !== 'home') {
@@ -329,11 +341,11 @@ export default function App() {
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-white break-words">
-                  Developer tools. One place.
+                  DevKit — Fast Private Developer Tools
                 </h1>
 
                 <p className="text-sm sm:text-base lg:text-lg text-zinc-600 dark:text-zinc-400 mt-2 font-normal">
-                  Fast, private utilities for developers.
+                  Fast, private browser-based utilities for formatting, encoding, debugging, conversion, testing, and reference tasks.
                 </p>
 
                 {/* Privacy Badges */}
@@ -458,6 +470,18 @@ export default function App() {
 
               {/* Categories & Search Filter Bar */}
               <div className="space-y-4 pt-2 w-full min-w-0">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <SlidersHorizontal className="w-4 h-4 text-zinc-400 shrink-0" />
+                    <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
+                      All Developer Utilities
+                    </h2>
+                  </div>
+                  <div className="text-xs text-zinc-400 font-mono">
+                    {filteredTools.length} tool{filteredTools.length === 1 ? '' : 's'}
+                  </div>
+                </div>
+
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full min-w-0">
                   {/* Category Pills */}
                   <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 sm:pb-0 scrollbar-none w-full min-w-0 max-w-full">
@@ -491,10 +515,6 @@ export default function App() {
                         </button>
                       );
                     })}
-                  </div>
-
-                  <div className="text-xs text-zinc-400 font-mono self-end sm:self-center shrink-0">
-                    {filteredTools.length} tool{filteredTools.length === 1 ? '' : 's'}
                   </div>
                 </div>
 
