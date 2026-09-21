@@ -138,14 +138,17 @@ The project adheres to verified validation and quality standards:
 
 ## Screenshots
 
-Screenshots will be added here.
+### Homepage
+![DevKit Homepage](public/homepage.png)
 
-Planned screenshots:
-- Homepage
-- JSON Formatter
-- JWT Decoder
-- Hash Generator
-- Mobile experience
+### JSON Formatter
+![JSON Formatter](public/json-formatter.png)
+
+### JWT Decoder
+![JWT Decoder](public/jwt-decoder.png)
+
+### Mobile Experience
+![DevKit Mobile](public/mobile.png)
 
 ## Roadmap
 
