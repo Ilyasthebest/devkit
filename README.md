@@ -139,16 +139,20 @@ The project adheres to verified validation and quality standards:
 ## Screenshots
 
 ### Homepage
-![DevKit Homepage](public/homepage.png)
+
+<img src="./public/homepage.png" alt="DevKit Homepage" width="100%">
 
 ### JSON Formatter
-![JSON Formatter](public/json-formatter.png)
+
+<img src="./public/json-formatter.png" alt="DevKit JSON Formatter" width="100%">
 
 ### JWT Decoder
-![JWT Decoder](public/jwt-decoder.png)
+
+<img src="./public/jwt-decoder.png" alt="DevKit JWT Decoder" width="100%">
 
 ### Mobile Experience
-![DevKit Mobile](public/mobile.png)
+
+<img src="./public/mobile.png" alt="DevKit Mobile Experience" width="320">
 
 ## Roadmap
 
