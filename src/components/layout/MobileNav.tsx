@@ -155,7 +155,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
           {/* All Tool list */}
           <div className="space-y-1">
             <div className="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-              All 14 Utilities
+              All {TOOLS.length} Utilities
             </div>
             {TOOLS.map((tool) => {
               const isActive = activeTool === tool.id;

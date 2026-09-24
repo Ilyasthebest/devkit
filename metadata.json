@@ -1,6 +1,6 @@
 {
   "name": "DevKit",
-  "description": "DevKit is a fast, private browser-based developer toolkit with 14 developer utilities for formatting, encoding, debugging, conversion, testing, and reference tasks.",
+  "description": "DevKit is a fast, private browser-based developer toolkit with 18 developer utilities for formatting, encoding, debugging, conversion, testing, and reference tasks.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

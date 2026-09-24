@@ -85,6 +85,24 @@ export function searchAndRankTools(tools: ToolMeta[], rawQuery: string): ToolMet
     if (query === 'regexp' && tool.id === 'regex') score += 800;
     if (query === 'epoch' && tool.id === 'timestamp') score += 700;
     if (query === 'unix' && tool.id === 'timestamp') score += 700;
+    if (query === 'sql' && tool.id === 'sql-formatter') score += 900;
+    if (query === 'query' && tool.id === 'sql-formatter') score += 800;
+    if (query === 'postgres' && tool.id === 'sql-formatter') score += 800;
+    if (query === 'mysql' && tool.id === 'sql-formatter') score += 800;
+    if (query === 'code' && tool.id === 'code-formatter') score += 800;
+    if (query === 'css' && tool.id === 'code-formatter') score += 800;
+    if (query === 'html' && tool.id === 'code-formatter') score += 800;
+    if (query === 'js' && tool.id === 'code-formatter') score += 800;
+    if (query === 'beautify' && (tool.id === 'code-formatter' || tool.id === 'json-formatter' || tool.id === 'sql-formatter')) score += 750;
+    if (query === 'minify' && (tool.id === 'code-formatter' || tool.id === 'json-formatter' || tool.id === 'sql-formatter')) score += 750;
+    if (query === 'csv' && tool.id === 'json-csv') score += 900;
+    if (query === 'spreadsheet' && tool.id === 'json-csv') score += 750;
+    if (query === 'api' && tool.id === 'api-request') score += 900;
+    if (query === 'rest' && tool.id === 'api-request') score += 850;
+    if (query === 'curl' && tool.id === 'api-request') score += 800;
+    if (query === 'fetch' && tool.id === 'api-request') score += 800;
+    if (query === 'request' && tool.id === 'api-request') score += 800;
+    if (query === 'endpoint' && tool.id === 'api-request') score += 800;
 
     if (score > 0) {
       scoredList.push({ tool, score });

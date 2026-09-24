@@ -12,7 +12,11 @@ export type ToolId =
   | 'url-encoder'
   | 'number-base'
   | 'cron-generator'
-  | 'http-status';
+  | 'http-status'
+  | 'sql-formatter'
+  | 'code-formatter'
+  | 'json-csv'
+  | 'api-request';
 
 export interface ToolMeta {
   id: ToolId;

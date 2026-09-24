@@ -15,6 +15,11 @@ import {
   CalendarClock,
   Server,
   Wrench,
+  Database,
+  Braces,
+  FileSpreadsheet,
+  Send,
+  Globe,
 } from 'lucide-react';
 
 interface ToolIconProps {
@@ -52,6 +57,16 @@ export const ToolIcon: React.FC<ToolIconProps> = ({ name, className = 'w-5 h-5' 
       return <CalendarClock className={className} />;
     case 'Server':
       return <Server className={className} />;
+    case 'Database':
+      return <Database className={className} />;
+    case 'Braces':
+      return <Braces className={className} />;
+    case 'FileSpreadsheet':
+      return <FileSpreadsheet className={className} />;
+    case 'Send':
+      return <Send className={className} />;
+    case 'Globe':
+      return <Globe className={className} />;
     default:
       return <Wrench className={className} />;
   }

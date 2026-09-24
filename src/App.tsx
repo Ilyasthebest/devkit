@@ -23,7 +23,7 @@ import {
   clearStoredHistory,
 } from './utils/storage';
 
-// 14 Tools
+// 18 Tools
 import { JsonFormatter } from './components/tools/JsonFormatter';
 import { Base64Tool } from './components/tools/Base64Tool';
 import { UuidGenerator } from './components/tools/UuidGenerator';
@@ -38,6 +38,10 @@ import { UrlEncoderDecoder } from './components/tools/UrlEncoderDecoder';
 import { NumberBaseConverter } from './components/tools/NumberBaseConverter';
 import { CronGenerator } from './components/tools/CronGenerator';
 import { HttpStatusReference } from './components/tools/HttpStatusReference';
+import { SqlFormatter } from './components/tools/SqlFormatter';
+import { CodeFormatter } from './components/tools/CodeFormatter';
+import { JsonCsvConverter } from './components/tools/JsonCsvConverter';
+import { ApiRequestBuilder } from './components/tools/ApiRequestBuilder';
 
 import {
   ArrowLeft,
@@ -322,8 +326,8 @@ export default function App() {
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold max-w-full">
                     <Zap className="w-3.5 h-3.5 shrink-0" />
-                    <span className="sm:hidden truncate">DevKit v3.0 • Workspace</span>
-                    <span className="hidden sm:inline">DevKit v3.0 • Fast, Private Developer Workspace</span>
+                    <span className="sm:hidden truncate">DevKit v4.0 • Workspace</span>
+                    <span className="hidden sm:inline">DevKit v4.0 • Fast, Private Developer Workspace</span>
                   </div>
 
                   {/* Quick Cmd+K Pill */}
@@ -642,6 +646,10 @@ export default function App() {
                 {activeTool === 'number-base' && <NumberBaseConverter />}
                 {activeTool === 'cron-generator' && <CronGenerator />}
                 {activeTool === 'http-status' && <HttpStatusReference />}
+                {activeTool === 'sql-formatter' && <SqlFormatter />}
+                {activeTool === 'code-formatter' && <CodeFormatter />}
+                {activeTool === 'json-csv' && <JsonCsvConverter />}
+                {activeTool === 'api-request' && <ApiRequestBuilder />}
               </div>
             </div>
           )}

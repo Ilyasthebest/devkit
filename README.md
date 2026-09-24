@@ -12,7 +12,7 @@ All processing occurs entirely on the client side, ensuring sensitive payloads s
 
 ## Features
 
-DevKit includes 14 focused utilities:
+DevKit includes 18 focused utilities:
 
 1. **JSON Formatter** — Formats, validates, beautifies, and minifies JSON with syntax error detection and hierarchy stats.
 2. **Base64 Encoder/Decoder** — Encodes and decodes UTF-8 strings to and from Base64 representation.
@@ -28,6 +28,10 @@ DevKit includes 14 focused utilities:
 12. **Number Base Converter** — Converts numbers across Binary, Octal, Decimal, and Hexadecimal representations simultaneously with BigInt support.
 13. **Cron Expression Generator** — Builds, inspects, and describes standard 5-part POSIX cron schedules with human-readable explanations.
 14. **HTTP Status Code Reference** — Searchable reference guide for 1xx, 2xx, 3xx, 4xx, and 5xx HTTP response codes with definitions and common causes.
+15. **SQL Formatter** — Formats, beautifies, and minifies SQL queries with keyword casing control, clause indentation, and syntax-aware formatting.
+16. **Code Formatter / Minifier** — Formats and minifies HTML, CSS, and JavaScript with token-preserving indentation and zero code execution.
+17. **JSON ↔ CSV Converter** — Converts between JSON arrays and CSV tables with RFC 4180 parsing, quote escaping, type inference, and client-side downloads.
+18. **API Request Builder** — Directly constructs and tests HTTP/REST requests (GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS) with custom headers, query params, payloads, and response inspection.
 
 ## Developer Workspace
 
@@ -69,7 +73,7 @@ The workspace includes developer-centric productivity features:
 │   ├── components/
 │   │   ├── common/         # Shared components (CommandPalette, CopyButton, HistoryModal, ToolIcon)
 │   │   ├── layout/         # Shell components (Navbar, Sidebar, MobileNav, ToolCard)
-│   │   └── tools/          # Implementation of the 14 developer utility components
+│   │   └── tools/          # Implementation of the 18 developer utility components
 │   ├── data/
 │   │   └── tools.ts        # Tool definitions, categorization, and search keywords
 │   ├── utils/              # Helper functions (clipboard, search ranking, localStorage)
