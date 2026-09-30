@@ -127,7 +127,7 @@ export const UuidGenerator: React.FC = () => {
               id="uuid-copy-all-btn"
               text={allUuidsText}
               label={`Copy All (${uuids.length})`}
-              copiedLabel="All Copied!"
+              copiedLabel="Copied All"
             />
           )}
         </div>
@@ -165,6 +165,8 @@ export const UuidGenerator: React.FC = () => {
                   id={`uuid-copy-item-${idx}`}
                   text={uuid}
                   label="Copy"
+                  copiedLabel="Copied"
+                  title={`Copy UUID ${idx + 1}`}
                   iconOnly={false}
                   className="opacity-90 group-hover:opacity-100"
                 />

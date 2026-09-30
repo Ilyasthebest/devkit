@@ -157,8 +157,8 @@ export const MarkdownPreviewer: React.FC = () => {
             {stats.words} words • {stats.chars} chars • {stats.lines} lines
           </div>
           <div className="flex items-center gap-2">
-            <CopyButton id="markdown-copy-raw-btn" text={markdown} label="Copy Markdown" />
-            <CopyButton id="markdown-copy-html-btn" text={renderedHtml} label="Copy HTML" />
+            <CopyButton id="markdown-copy-raw-btn" text={markdown} label="Copy Markdown" copiedLabel="Copied" />
+            <CopyButton id="markdown-copy-html-btn" text={renderedHtml} label="Copy HTML" copiedLabel="Copied" />
           </div>
         </div>
       </div>

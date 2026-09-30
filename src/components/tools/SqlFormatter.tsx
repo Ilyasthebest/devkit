@@ -154,17 +154,8 @@ function tokenizeSql(sql: string): Token[] {
   return tokens;
 }
 
-function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing): string {
-  if (!sql.trim()) return '';
-
-  const rawTokens = tokenizeSql(sql);
-  // Filter out pure whitespace tokens for controlled indentation
-  const tokens: Token[] = [];
-  for (const t of rawTokens) {
-    if (t.type !== 'whitespace') {
-      tokens.push(t);
-    }
-  }
+function formatSqlTokens(tokens: Token[], indentUnit: string, casing: KeywordCasing, baseIndentLevel = 0): string {
+  if (tokens.length === 0) return '';
 
   const keywordMap = new Map<string, string>();
   for (const kw of SQL_KEYWORDS) {
@@ -172,7 +163,7 @@ function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing)
   }
 
   let formatted = '';
-  let indentLevel = 0;
+  let indentLevel = baseIndentLevel;
   let inParentheses = 0;
   let newlinePending = false;
   let needSpace = false;
@@ -260,7 +251,7 @@ function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing)
       }
 
       if (wordUpper === 'END') {
-        indentLevel = Math.max(0, indentLevel - 1);
+        indentLevel = Math.max(baseIndentLevel, indentLevel - 1);
         if (needSpace) formatted += ' ';
         formatted += displayWord;
         needSpace = true;
@@ -301,7 +292,45 @@ function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing)
     }
 
     if (token.type === 'punct') {
+      // Check if this '(' is the start of a nested subquery (e.g. JOIN (SELECT ...), FROM (SELECT ...), etc.)
       if (token.value === '(') {
+        let lookAhead = i + 1;
+        while (lookAhead < tokens.length && tokens[lookAhead].type === 'comment') {
+          lookAhead++;
+        }
+        const isSubquery =
+          lookAhead < tokens.length &&
+          tokens[lookAhead].type === 'word' &&
+          ['SELECT', 'WITH'].includes(tokens[lookAhead].value.toUpperCase());
+
+        if (isSubquery) {
+          let depth = 1;
+          let closeIdx = i + 1;
+          while (closeIdx < tokens.length && depth > 0) {
+            if (tokens[closeIdx].type === 'punct' && tokens[closeIdx].value === '(') {
+              depth++;
+            } else if (tokens[closeIdx].type === 'punct' && tokens[closeIdx].value === ')') {
+              depth--;
+            }
+            if (depth === 0) break;
+            closeIdx++;
+          }
+
+          if (depth === 0) {
+            if (needSpace && !formatted.endsWith('(') && !formatted.endsWith(' ') && !formatted.endsWith('\n')) {
+              formatted += ' ';
+            }
+            formatted += '(';
+            const innerTokens = tokens.slice(i + 1, closeIdx);
+            const innerFormatted = formatSqlTokens(innerTokens, indentUnit, casing, indentLevel + 1);
+            formatted += '\n' + innerFormatted + '\n' + getIndent(indentLevel) + ')';
+            i = closeIdx;
+            needSpace = true;
+            newlinePending = false;
+            continue;
+          }
+        }
+
         if (needSpace && !formatted.endsWith('(') && !formatted.endsWith(' ')) {
           formatted += ' ';
         }
@@ -354,7 +383,22 @@ function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing)
     }
   }
 
-  return formatted.trim();
+  return baseIndentLevel > 0 ? formatted.trimEnd().replace(/^\n+/, '') : formatted.trim();
+}
+
+export function formatSqlString(sql: string, indentUnit: string, casing: KeywordCasing): string {
+  if (!sql.trim()) return '';
+
+  const rawTokens = tokenizeSql(sql);
+  // Filter out pure whitespace tokens for controlled indentation
+  const tokens: Token[] = [];
+  for (const t of rawTokens) {
+    if (t.type !== 'whitespace') {
+      tokens.push(t);
+    }
+  }
+
+  return formatSqlTokens(tokens, indentUnit, casing, 0);
 }
 
 function minifySqlString(sql: string): string {

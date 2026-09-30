@@ -99,6 +99,28 @@ function hslToRgb(hsl: HSL): RGB {
   };
 }
 
+export function parseHslString(input: string): HSL | null {
+  const trimmed = input.trim();
+  if (!trimmed) return null;
+
+  const match = trimmed.match(
+    /^(?:hsla?\s*\(\s*)?([0-9.]+)(?:deg)?[\s,]+([0-9.]+)%?[\s,]+([0-9.]+)%?(?:\s*[,/]\s*[0-9.]+)?(?:\s*\))?$/i
+  );
+  if (!match) return null;
+
+  const h = parseFloat(match[1]);
+  const s = parseFloat(match[2]);
+  const l = parseFloat(match[3]);
+
+  if (isNaN(h) || isNaN(s) || isNaN(l)) return null;
+
+  const normalizedH = ((Math.round(h) % 360) + 360) % 360;
+  const clampedS = Math.max(0, Math.min(100, Math.round(s)));
+  const clampedL = Math.max(0, Math.min(100, Math.round(l)));
+
+  return { h: normalizedH, s: clampedS, l: clampedL };
+}
+
 // Relative luminance for contrast
 function getLuminance(rgb: RGB): number {
   const a = [rgb.r, rgb.g, rgb.b].map((v) => {
@@ -128,6 +150,7 @@ const PRESETS = [
 
 export const ColorConverter: React.FC = () => {
   const [hexInput, setHexInput] = useState('#4F46E5');
+  const [hslInput, setHslInput] = useState('hsl(243, 75%, 59%)');
   const [rgb, setRgb] = useState<RGB>({ r: 79, g: 70, b: 229 });
   const [hsl, setHsl] = useState<HSL>({ h: 243, s: 75, l: 59 });
   const [error, setError] = useState<string | null>(null);
@@ -135,7 +158,9 @@ export const ColorConverter: React.FC = () => {
   const updateFromRgb = (newRgb: RGB) => {
     setRgb(newRgb);
     setHexInput(rgbToHex(newRgb));
-    setHsl(rgbToHsl(newRgb));
+    const newHsl = rgbToHsl(newRgb);
+    setHsl(newHsl);
+    setHslInput(`hsl(${newHsl.h}, ${newHsl.s}%, ${newHsl.l}%)`);
     setError(null);
   };
 
@@ -144,10 +169,26 @@ export const ColorConverter: React.FC = () => {
     const parsed = hexToRgb(value);
     if (parsed) {
       setRgb(parsed);
-      setHsl(rgbToHsl(parsed));
+      const newHsl = rgbToHsl(parsed);
+      setHsl(newHsl);
+      setHslInput(`hsl(${newHsl.h}, ${newHsl.s}%, ${newHsl.l}%)`);
       setError(null);
     } else {
       setError('Invalid HEX color code (must be #RGB or #RRGGBB).');
+    }
+  };
+
+  const handleHslInputChange = (value: string) => {
+    setHslInput(value);
+    const parsed = parseHslString(value);
+    if (parsed) {
+      setHsl(parsed);
+      const nextRgb = hslToRgb(parsed);
+      setRgb(nextRgb);
+      setHexInput(rgbToHex(nextRgb));
+      setError(null);
+    } else {
+      setError('Invalid HSL format (e.g. hsl(243, 75%, 59%)).');
     }
   };
 
@@ -162,6 +203,7 @@ export const ColorConverter: React.FC = () => {
     const clamped = Math.max(0, Math.min(max, isNaN(val) ? 0 : val));
     const nextHsl = { ...hsl, [channel]: clamped };
     setHsl(nextHsl);
+    setHslInput(`hsl(${nextHsl.h}, ${nextHsl.s}%, ${nextHsl.l}%)`);
     const nextRgb = hslToRgb(nextHsl);
     setRgb(nextRgb);
     setHexInput(rgbToHex(nextRgb));
@@ -316,9 +358,12 @@ export const ColorConverter: React.FC = () => {
             {/* HEX */}
             <div className="p-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                <label
+                  htmlFor="color-hex-input"
+                  className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400"
+                >
                   HEX Code
-                </span>
+                </label>
                 <input
                   id="color-hex-input"
                   type="text"
@@ -328,7 +373,7 @@ export const ColorConverter: React.FC = () => {
                   className="w-full font-mono text-sm font-semibold text-zinc-900 dark:text-zinc-100 bg-transparent border-0 p-0 focus:outline-none focus:ring-0"
                 />
               </div>
-              <CopyButton id="color-copy-hex-btn" text={currentHex} label="Copy HEX" />
+              <CopyButton id="color-copy-hex-btn" text={currentHex} label="Copy HEX" copiedLabel="Copied" />
             </div>
 
             {/* RGB */}
@@ -341,20 +386,29 @@ export const ColorConverter: React.FC = () => {
                   {rgbString}
                 </div>
               </div>
-              <CopyButton id="color-copy-rgb-btn" text={rgbString} label="Copy RGB" />
+              <CopyButton id="color-copy-rgb-btn" text={rgbString} label="Copy RGB" copiedLabel="Copied" />
             </div>
 
             {/* HSL */}
             <div className="p-3 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 flex items-center justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                <label
+                  htmlFor="color-hsl-input"
+                  className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400"
+                >
                   HSL Format
-                </span>
-                <div className="font-mono text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
-                  {hslString}
-                </div>
+                </label>
+                <input
+                  id="color-hsl-input"
+                  type="text"
+                  value={hslInput}
+                  onChange={(e) => handleHslInputChange(e.target.value)}
+                  aria-label="HSL color code"
+                  placeholder="hsl(243, 75%, 59%)"
+                  className="w-full font-mono text-sm font-semibold text-zinc-900 dark:text-zinc-100 bg-transparent border-0 p-0 focus:outline-none focus:ring-0"
+                />
               </div>
-              <CopyButton id="color-copy-hsl-btn" text={hslString} label="Copy HSL" />
+              <CopyButton id="color-copy-hsl-btn" text={hslString} label="Copy HSL" copiedLabel="Copied" />
             </div>
 
             {/* CSS RGBA */}
@@ -367,7 +421,7 @@ export const ColorConverter: React.FC = () => {
                   {rgbaString}
                 </div>
               </div>
-              <CopyButton id="color-copy-rgba-btn" text={rgbaString} label="Copy RGBA" />
+              <CopyButton id="color-copy-rgba-btn" text={rgbaString} label="Copy RGBA" copiedLabel="Copied" />
             </div>
           </div>
 

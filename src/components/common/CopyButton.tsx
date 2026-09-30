@@ -16,7 +16,7 @@ interface CopyButtonProps {
 export const CopyButton: React.FC<CopyButtonProps> = ({
   text,
   label = 'Copy',
-  copiedLabel = '✓ Copied!',
+  copiedLabel = 'Copied',
   className = '',
   iconOnly = false,
   disabled = false,
@@ -29,10 +29,14 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     e.stopPropagation();
     if (!text || disabled) return;
 
-    const success = await copyToClipboard(text);
-    if (success) {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+    try {
+      const success = await copyToClipboard(text);
+      if (success) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // Do not show copied if clipboard operation fails
     }
   };
 
@@ -42,8 +46,9 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
       type="button"
       onClick={handleCopy}
       disabled={disabled || !text}
-      aria-label={title || (copied ? 'Copied to clipboard' : `Copy ${label}`)}
-      title={title || (copied ? 'Copied to clipboard!' : 'Copy to clipboard')}
+      aria-label={title || (copied ? (iconOnly ? 'Copied to clipboard' : copiedLabel) : `Copy ${label}`)}
+      aria-live="polite"
+      title={title || (copied ? (iconOnly ? 'Copied to clipboard!' : copiedLabel) : `Copy ${label}`)}
       className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 select-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
         copied
           ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold'
@@ -52,12 +57,12 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     >
       {copied ? (
         <>
-          <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" />
-          {!iconOnly && <span>{copiedLabel}</span>}
+          <Check className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 shrink-0" aria-hidden="true" />
+          {!iconOnly ? <span>{copiedLabel}</span> : <span className="sr-only">Copied</span>}
         </>
       ) : (
         <>
-          <Copy className="w-3.5 h-3.5 shrink-0" />
+          <Copy className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
           {!iconOnly && <span>{label}</span>}
         </>
       )}

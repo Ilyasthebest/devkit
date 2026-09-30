@@ -183,6 +183,7 @@ export const TimestampConverter: React.FC = () => {
             id="ts-copy-current-btn"
             text={Math.floor(currentTimestamp / 1000).toString()}
             label="Copy Seconds"
+            copiedLabel="Copied"
           />
         </div>
       </div>
@@ -316,7 +317,7 @@ export const TimestampConverter: React.FC = () => {
                 <div className="p-3 bg-zinc-50 dark:bg-zinc-950/40 rounded-lg border border-zinc-200 dark:border-zinc-800/80">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-zinc-400 font-medium">Epoch (Seconds)</span>
-                    <CopyButton text={customTsResult.seconds.toString()} />
+                    <CopyButton text={customTsResult.seconds.toString()} label="Copy" copiedLabel="Copied" />
                   </div>
                   <div className="font-mono text-base font-bold text-zinc-900 dark:text-zinc-100 select-all">
                     {customTsResult.seconds}
@@ -326,7 +327,7 @@ export const TimestampConverter: React.FC = () => {
                 <div className="p-3 bg-zinc-50 dark:bg-zinc-950/40 rounded-lg border border-zinc-200 dark:border-zinc-800/80">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs text-zinc-400 font-medium">Epoch (Milliseconds)</span>
-                    <CopyButton text={customTsResult.milliseconds.toString()} />
+                    <CopyButton text={customTsResult.milliseconds.toString()} label="Copy" copiedLabel="Copied" />
                   </div>
                   <div className="font-mono text-base font-bold text-zinc-900 dark:text-zinc-100 select-all">
                     {customTsResult.milliseconds}
