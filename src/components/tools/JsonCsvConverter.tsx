@@ -530,11 +530,17 @@ export const JsonCsvConverter: React.FC = () => {
             <span className="font-semibold uppercase tracking-wider text-[11px]">
               {direction === 'json-to-csv' ? 'CSV Output' : 'JSON Output'}
             </span>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="font-mono">
                 {output.length} chars • {output ? output.split('\n').length : 0} lines
               </span>
-              <CopyButton text={output} id="json-csv-copy-btn" />
+              <CopyButton
+                id="json-csv-copy-btn"
+                text={output}
+                label="Copy"
+                copiedLabel="Copied"
+                statusMessage="Output copied to clipboard."
+              />
             </div>
           </div>
           <textarea

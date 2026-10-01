@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { copyToClipboard } from '../../utils/clipboard';
 
@@ -6,24 +6,37 @@ interface CopyButtonProps {
   text: string;
   label?: string;
   copiedLabel?: string;
+  statusMessage?: string;
   className?: string;
   iconOnly?: boolean;
   disabled?: boolean;
   id?: string;
   title?: string;
+  onCopy?: () => void;
 }
 
 export const CopyButton: React.FC<CopyButtonProps> = ({
   text,
   label = 'Copy',
   copiedLabel = 'Copied',
+  statusMessage,
   className = '',
   iconOnly = false,
   disabled = false,
   id,
   title,
+  onCopy,
 }) => {
   const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -32,23 +45,28 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     try {
       const success = await copyToClipboard(text);
       if (success) {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        if (onCopy) onCopy();
+        timeoutRef.current = setTimeout(() => {
+          setCopied(false);
+        }, 1800);
       }
     } catch {
-      // Do not show copied if clipboard operation fails
+      // Do not show copied if clipboard operation explicitly fails
     }
   };
 
-  return (
+  const buttonContent = (
     <button
       id={id}
       type="button"
       onClick={handleCopy}
       disabled={disabled || !text}
-      aria-label={title || (copied ? (iconOnly ? 'Copied to clipboard' : copiedLabel) : `Copy ${label}`)}
-      aria-live="polite"
-      title={title || (copied ? (iconOnly ? 'Copied to clipboard!' : copiedLabel) : `Copy ${label}`)}
+      aria-label={title || (copied ? (iconOnly ? 'Copied to clipboard' : copiedLabel) : label)}
+      title={title || (copied ? (iconOnly ? 'Copied to clipboard!' : copiedLabel) : label)}
       className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 select-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
         copied
           ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 font-semibold'
@@ -68,4 +86,26 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
       )}
     </button>
   );
+
+  if (statusMessage) {
+    return (
+      <div className="inline-flex items-center gap-2">
+        {buttonContent}
+        <span
+          role="status"
+          aria-live="polite"
+          className={
+            copied
+              ? 'text-xs font-medium text-emerald-600 dark:text-emerald-400 select-none'
+              : 'sr-only'
+          }
+        >
+          {copied ? statusMessage : ''}
+        </span>
+      </div>
+    );
+  }
+
+  return buttonContent;
 };
+
